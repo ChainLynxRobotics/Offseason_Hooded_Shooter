@@ -30,6 +30,8 @@ public class ShootCommand extends CommandBase {
     m_targetX = targetX;
     m_targetY = targetY;
 
+
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -37,23 +39,33 @@ public class ShootCommand extends CommandBase {
   // Called when the command is initially scheduled.
   //call the CalculateAngleVelocity function from the subsystem
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_theta = m_subsystem.calculateBestAngle(m_targetX, m_targetY);
+    m_velocity = m_subsystem.MpstoRPM(m_subsystem.CalculateAngleVelocity(m_targetX, m_targetY, m_theta));
+    m_subsystem.SetHoodAngle(m_theta);
+    m_subsystem.SetFlywheelVelocity(m_velocity);
+  }
 
 
   
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+  }
+  
 
   // Called once the command ends or is interrupted.
   //TODO: add a timeout to the function so it ends after a certian amount of time
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return((Math.abs(targetRPM - m_subsystem.getFlywheelEncoder().getVelocity()) < tolerance) && Math.abs((targetAngle - m_subsystem.getHoodEncoder().getPosition()) < tolerance));
   }
 }

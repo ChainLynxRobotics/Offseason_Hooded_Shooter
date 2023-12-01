@@ -17,4 +17,8 @@ public final class Constants {
     public static final double flywheelRad = 0.1; //Measured in meters
 
     public static final double maxFlywheelRPM = 1000;
+    public static final double gravity = 9.8;
+
+    public static final SHOOTER_CONTROLLER_ID_1 = 0;
+    public static final double tolerance = 0.01;
 }
