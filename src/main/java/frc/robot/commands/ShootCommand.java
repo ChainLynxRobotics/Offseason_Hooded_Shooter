@@ -60,7 +60,7 @@ public class ShootCommand extends CommandBase {
   //TODO: add a timeout to the function so it ends after a certian amount of time
   @Override
   public void end(boolean interrupted) {
-
+    m_subsystem.stop();
   }
 
   // Returns true when the command should end.

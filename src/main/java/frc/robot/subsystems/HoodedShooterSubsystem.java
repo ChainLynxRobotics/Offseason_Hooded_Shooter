@@ -119,6 +119,10 @@ public class HoodedShooterSubsystem extends SubsystemBase {
     return m_encoder2;
   }
 
+  public void stop() {
+    flywheelMotor.set(0);
+    hoodMotor.set(0);
+  }
 
   //helper function to convert meters per second to rotations per minute
   public double MpsToRPM(double mps) {
@@ -131,4 +135,5 @@ public class HoodedShooterSubsystem extends SubsystemBase {
 
     return rpm;
   }
+
 }
